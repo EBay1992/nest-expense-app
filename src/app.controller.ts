@@ -10,10 +10,12 @@ import {
   ParseEnumPipe,
 } from '@nestjs/common';
 
-import { Report, ReportType } from './data';
-import { AppService } from './app.service';
+import { ReportType } from './data';
+
 import { CreateReportDto } from './DTOs/createReport.dto';
 import { UpdateReportDto } from './DTOs/updateReport.dto';
+import { ResponseReportDto } from './DTOS/responseReport.dto';
+import { AppService } from './app.service';
 
 @Controller('report/:type')
 export class AppController {
@@ -22,7 +24,7 @@ export class AppController {
   @Get()
   getAllIReports(
     @Param('type', new ParseEnumPipe(ReportType)) type: ReportType,
-  ): Report[] {
+  ): ResponseReportDto[] {
     return this.AppService.getAllIReports(type);
   }
 
@@ -35,7 +37,7 @@ export class AppController {
   createReport(
     @Param('type', new ParseEnumPipe(ReportType)) type: ReportType,
     @Body() body: CreateReportDto,
-  ): Report {
+  ): ResponseReportDto {
     return this.AppService.createReport(type, body);
   }
 
@@ -43,12 +45,12 @@ export class AppController {
   updatePostById(
     @Param('id', ParseUUIDPipe) id: string,
     @Body() body: UpdateReportDto,
-  ): Report | null {
+  ): ResponseReportDto | null {
     return this.AppService.updateReportById(id, body);
   }
 
   @Delete('/:id')
-  deletePostById(@Param('id', ParseUUIDPipe) id): Report | null {
+  deletePostById(@Param('id', ParseUUIDPipe) id): ResponseReportDto | null {
     return this.AppService.deleteReportById(id);
   }
 }

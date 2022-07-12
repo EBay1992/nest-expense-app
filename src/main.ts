@@ -8,6 +8,9 @@ async function bootstrap() {
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true, //validate all properties and remove those that are not in the schema of DTO
+      transformOptions:{
+        enableImplicitConversion: true,  //* to use interceptor to convert to DTO
+      }
     }),
   );
 
