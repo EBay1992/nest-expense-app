@@ -6,6 +6,7 @@ import { ReportService } from './report.service';
 
 @Module({
   controllers: [ReportController],
+  exports: [ReportService], //! somewhere in the app if any module want to access to something form this module, they could get this entities
   providers: [ReportService, {
     provide: APP_INTERCEPTOR,
     useClass:ClassSerializerInterceptor
